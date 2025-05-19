@@ -18,6 +18,14 @@ const getById = async(id : number) : Promise < Product > => {
     }
 }
 
+const getByName = async(name : string) : Promise < Product > => {
+    try {
+        return await connection.query(`SELECT * FROM product WHERE name Like '%${name}'`);
+    }catch(err){
+      throw err;
+    }
+}
+
 const updateProduct = async(id : number, spaltenName : string, wert : any) : Promise < any > => {
     // console.log(typeof id, spaltenName, typeof wert);
 
@@ -44,6 +52,8 @@ const createProduct = async(product : Product) : Promise < any > => {
         const stmt : Array < Product > = await connection.query(`SELECT * FROM product WHERE id in (${product.id})`)
         if (stmt.length == 0) {
             return await connection.query(`INSERT INTO product VALUES(${product.id}, '${product.name}', ${product.price})`);
+            // alternative -return await connection.query(`INSERT INTO product VALUES($1),
+            // [product]);
         } else {
             throw new Error("Id ist bereits vorhanden")
         }
@@ -56,6 +66,7 @@ const createProduct = async(product : Product) : Promise < any > => {
 export default {
     selectAll,
     getById,
+    getByName,
     updateProduct,
     deleteProduct,
     createProduct

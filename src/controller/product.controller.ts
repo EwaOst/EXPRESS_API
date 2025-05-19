@@ -28,6 +28,24 @@ const getById = async(req : Request, res : Response) => {
         })
 }
 
+const getByName = async(req : Request, res : Response) => {
+    await dbProduct
+        .getByName(req.params.name)
+        .then(product => {
+            res
+                .status(200)
+                .send({messege: 'OK', result: product})
+        })
+        .catch(err => {
+            res
+                .status(400)
+                .send({
+                    message: " Irgendwas ist schief gelaufen, wenden Sie sich an den Support unter Telefonnumm" +
+                            "er 122", err
+                })
+        })
+}
+
 const updateProduct = async(req : Request, res : Response) => {
 
     const body = (req.body);
@@ -68,19 +86,20 @@ const createProduct = async(req : Request, res : Response) => {
         .then(response => {
             res
                 .status(201)
-                .send({message: 'Product angelegt'})}
-              )
-                .catch(err => {
-                res
-                    .status(400)
-                    .send(err)
-            })
-          }
+                .send({message: 'Product angelegt'})
+        })
+        .catch(err => {
+            res
+                .status(400)
+                .send(err)
+        })
+}
 
-    export default {
-        getAll,
-        getById,
-        updateProduct,
-        deleteProduct,
-        createProduct
-    };
+export default {
+    getAll,
+    getById,
+    getByName,
+    updateProduct,
+    deleteProduct,
+    createProduct
+};
