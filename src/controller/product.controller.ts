@@ -1,19 +1,22 @@
 import {Request, Response, NextFunction, response} from "express";
 import {Product} from "../model/product";
 import dbProduct from "../config/db/db.product";
+import {error} from "console";
 
-const getAll = async(req : Request, res : Response, next : NextFunction) => {
-    try {
-        const products = await dbProduct.selectAll();
+const getAll = async(req : Request, res : Response, next : NextFunction) => await dbProduct
+    .selectAll()
+    .then(products => {
         res
             .status(200)
             .send({message: 'OK', result: products});
-    } catch (err : any) {
-        next(err); // pozwala Expressowi zająć się błędem
-    }
-};
+    })
+    .catch(err => {
+        res
+            .status(500)
+            .send({message: 'Database Error', error: err.code})
+    })
 
-const getById = async(req : Request, res : Response) => {
+    const getById = async(req : Request, res : Response) => {
     await dbProduct
         .getById(parseInt(req.params.id))
         .then(product => {
@@ -41,7 +44,8 @@ const getByName = async(req : Request, res : Response) => {
                 .status(400)
                 .send({
                     message: " Irgendwas ist schief gelaufen, wenden Sie sich an den Support unter Telefonnumm" +
-                            "er 122", err
+                            "er 122",
+                    err
                 })
         })
 }
