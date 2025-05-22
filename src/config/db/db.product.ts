@@ -1,4 +1,3 @@
-import {log} from "console";
 import {Product} from "../../model/product";
 import {connection} from "./db";
 

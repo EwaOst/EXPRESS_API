@@ -1,7 +1,5 @@
 import {Request, Response, NextFunction, response} from "express";
-import {Product} from "../model/product";
 import dbProduct from "../config/db/db.product";
-import {error} from "console";
 
 const getAll = async(req : Request, res : Response) => 
     await dbProduct
@@ -86,6 +84,9 @@ const deleteProduct = async(req : Request, res : Response) => {
 }
 
 const createProduct = async(req : Request, res : Response) => {
+
+    console.log(req.body);
+
     await dbProduct
         .createProduct(req.body)
         .then(response => {

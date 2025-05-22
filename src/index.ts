@@ -11,7 +11,7 @@ const options: cors.CorsOptions = {
     origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     optionsSuccessStatus: 204,
-    allowedHeaders: 'Access-Control-Allowed-Methods'
+    // allowedHeaders: 'Access-Control-Allowed-Methods'
 
 };
 
