@@ -3,7 +3,8 @@ import {Product} from "../model/product";
 import dbProduct from "../config/db/db.product";
 import {error} from "console";
 
-const getAll = async(req : Request, res : Response, next : NextFunction) => await dbProduct
+const getAll = async(req : Request, res : Response) => 
+    await dbProduct
     .selectAll()
     .then(products => {
         res

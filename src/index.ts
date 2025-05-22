@@ -9,8 +9,9 @@ const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500']
 
 const options: cors.CorsOptions = {
     origin: allowedOrigins,
-    methods: 'GET, POST, PUT, DELETE, OPTIONS',
-    optionsSuccessStatus: 204
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    optionsSuccessStatus: 204,
+    allowedHeaders: 'Access-Control-Allowed-Methods'
 
 };
 
